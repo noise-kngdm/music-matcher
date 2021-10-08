@@ -1,0 +1,4 @@
+lenguaje: Python
+entidad: music/spotify_client.py
+entidad: user_information/music_history.py
+entidad: user_information/profile.py
