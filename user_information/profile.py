@@ -1,19 +1,20 @@
 class Profile:
-    '''A class representing an user of the application'''
+    '''A class representing an user of the application.'''
     def __init__(self, age, name, gender, favourite_music_genre, favourite_artists, music_history):
-        ''' Profile class constructor
+        ''' 
+        Profile class constructor.
             
             Attributes
             ----------
             age : int
                 User's age.
-            name : string
+            name : str
                 User's name.
-            gender : string
+            gender : str
                 User's gender.
-            favourite_music_genre : string
+            favourite_music_genre : str
                 User's favourite music genre.
-            favourite_artists : list of string
+            favourite_artists : list of str
                 User's favourite artists.
             music_history : MusicHistory object
                 It will contains all the user music history.

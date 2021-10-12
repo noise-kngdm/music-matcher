@@ -1,19 +1,20 @@
 class Song:
-    '''A class representing the information of a song '''
+    '''A class representing the information of a song. '''
     def __init__(self, title, music_genre, song_length, artist, related_songs):
-        ''' Song class constructor
+        ''' 
+        Song class constructor.
             
             Attributes
             ----------
-            title : string
+            title : str
                     It's the title of the song.
-            music_genre : string
+            music_genre : str
                     Music genre which it belongs.
             song_length : float 
                     The time it takes to play.
-            artist : string
+            artist : str
                     The singer or band who composed the song.
-            related_songs: list of string
+            related_songs: list of str
                     List of similar songs.
         '''
         self.title = title
