@@ -34,10 +34,9 @@ To execute the project, **it's necessary to activate the virtual environment** t
 ```zsh
 poetry shell
 ```  
----
-**NOTE**
-To exit the virtual environment it's only necessary to execute `exit` or press `Ctrl+d`, which has the same effect.
----  
+
+**NOTE**:  
+To exit the virtual environment you need to either execute `exit` or press `Ctrl+d`, which has the same effect.  
 
 ### Checking the programmed entities syntax
 To check the syntax of the programmed entities, you only need to `cd` into the root of the project and execute `inv check`.
