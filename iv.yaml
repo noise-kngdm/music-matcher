@@ -1,3 +1,9 @@
 lenguaje: Python
-entidad: user_information/music_history.py
-entidad: user_information/profile.py
+
+entidad:
+  - user_information/music_history.py
+  - user_information/profile.py
+
+automatizar:
+  - fichero: tasks.py
+  - orden: inv
