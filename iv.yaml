@@ -5,5 +5,5 @@ entidad:
   - user_information/profile.py
 
 automatizar:
-  - fichero: tasks.py
-  - orden: inv
+  fichero: tasks.py
+  orden: inv
