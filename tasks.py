@@ -16,5 +16,5 @@ def check(ctx, style=False):
     style : bool
         If code style will be checked too.
     """
-    pylint_check = ['tasks.py', 'music', 'user_information']
+    pylint_check = ['music_matcher', 'tasks.py']
     ctx.run('pylint ' + ('-E ' if not style else '') + ' '.join(pylint_check))
