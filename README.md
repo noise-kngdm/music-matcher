@@ -43,7 +43,7 @@ To check the syntax of the programmed entities, you only need to `cd` into the r
   
 ## Additional documentation
 ### User stories
-There's a detailed description of every user [here](www.github.com/noise-kngdm/music-matcher/docs/users.md).  
+There's a detailed description of every user [here](docs/users.md).  
 
 ### Development decisions
-There's a detailed explanation of why every tool was selected [here](www.github.com/noise-kngdm/music-matcher/docs/development_decisions.md).
+There's a detailed explanation of why every tool was selected [here](docs/development_decisions.md).
