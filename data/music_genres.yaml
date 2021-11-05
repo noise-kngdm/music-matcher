@@ -1,0 +1,107 @@
+genres:
+  - rock:
+      - subgenres:
+          - progressive
+          - indie
+          - jrock
+          - krock
+          - latin
+
+  - pop:
+      - subgenres:
+          - indie
+          - punk
+          - electronic
+          - kpop
+
+  - classical:
+      - subgenres:
+          - opera
+          - medieval
+          - indian
+          - baroque
+          - renaissance
+
+  - jazz:
+      - subgenres:
+          - bebop
+          - gypsy
+          - swing
+          - fusion
+
+  - hip-hop:
+      - subgenres:
+          - rap
+          - trap
+          - hardcore
+          - instrumental
+          - turntablism
+          - gangsta
+          
+  - electronic:
+    - subgenres:
+        - edm
+        - dance
+        - house
+        - 'drum&bass'
+        - dubstep
+        - eurobeat
+
+  - metal:
+      - subgenres:
+          - thrash
+          - black
+          - doom
+          - heavy
+          - death
+          - funeral doom
+          - progressive
+          - djent
+          - stoner
+          - 'nu-metal'
+          - industrial
+
+  - folk
+    - subgenres:
+        - galician
+        - dark
+        - indie
+        - neofolk
+
+  - reggae:
+      - subgenres:
+          - ska
+          - fusion
+          - dancehall
+
+  - reggaeton:
+      - subgenres:
+          - reggaeton
+
+  - alternative:
+      - subgenres:
+          - 'no-wave'
+          - industrial
+
+  - soul:
+    - subgenres:
+        - 'r&b'
+        - soul
+        - neo-soul        
+
+  - blues:
+    - subgenres:
+        - bluegrass
+        - country
+        - rhythm and blues
+
+  - flamenco:
+    - subgenres:
+        - alegrias
+        - bulerias
+        - fandango
+        - malagueñas
+        - rumba
+        - sevillanas
+        - tango
+        - soleás
