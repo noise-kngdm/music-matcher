@@ -23,7 +23,7 @@ class SongEntry:
 
 class MusicHistory:
     '''A class representing the music history of an user.'''
-    def __init__(self,songs_played: List[SongEntry]):
+    def __init__(self, songs_played: List[SongEntry]):
         '''
         MusicHistory class constructor.
 

@@ -5,7 +5,7 @@ from music_matcher.music_history import MusicHistory
 
 class User:
     '''A user of the application.'''
-    def __init__(self, birth_date: datetime, name:str, gender:str, music_history: MusicHistory):
+    def __init__(self, birth_date: datetime, name: str, gender: str, music_history: MusicHistory):
         '''
         User class constructor.
 
