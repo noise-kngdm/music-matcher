@@ -6,7 +6,7 @@ authors = ["gonzz <gonzalo.abril@wazuh.com>"]
 license = "GPL-3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9 <3.11"
 invoke = "^1.6.0"
 pylint = "^2.11.1"
 PyYAML = "^6.0"
