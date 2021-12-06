@@ -1,23 +1,15 @@
 """Module that represents a user profile."""
 from datetime import datetime
+from dataclasses import dataclass
+
 from music_matcher.song import Song
 
 
+@dataclass
 class SongEntry:
     '''Song with metadata to save into a user music history.'''
-    def __init__(self, song: Song, times_played: list[datetime]):
-        '''
-        SongEntry constructor.
-
-        Attributes
-        ----------
-        song : Song
-            Song played.
-        times_played : list[datetime]
-            Dates when the song was played.
-        '''
-        self._song = song
-        self._times_played = times_played
+    song: Song
+    times_played: list[datetime]
 
     @property
     def genre(self):
@@ -29,10 +21,10 @@ class SongEntry:
         str
             The music genre of the song.
         '''
-        return self._song.genre
+        return self.song.genre
 
     @property
-    def times_played(self) -> int:
+    def number_times_played(self) -> int:
         '''
         Return the amount of times the song was played.
 
@@ -41,7 +33,7 @@ class SongEntry:
         int
             Amount of times the song was played.
         '''
-        return len(self._times_played)
+        return len(self.times_played)
 
 
 class MusicHistory:
