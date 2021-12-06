@@ -1,45 +1,77 @@
 """Module that represents a user profile."""
 from datetime import datetime
+from dataclasses import dataclass
+
 from music_matcher.music_history import MusicHistory
 
 
+class UserError(ValueError):
+    pass
+
+
+class UserTypeError(ValueError):
+    pass
+
+
+@dataclass(order=True)
 class User:
-    '''A user of the application.'''
-    def __init__(self, birth_date: datetime, name: str, gender: str,
-                 music_history: MusicHistory, username: str):
-        '''
-        User class constructor.
+    '''A user of the application.
 
-            Attributes
-            ----------
-            birth_date : datetime
-                User's birth date.
-            name : str
-                User's name.
-            gender : str
-                User's gender.
-            music_history : MusicHistory
-                User's music history.
-            username : str
-                Unique username.
-        '''
-        self._birth_date = birth_date
-        self._name = name
-        self._gender = gender
-        self._music_history = music_history
-        self._username = username
+        Attributes
+        ----------
+        username : str
+            Unique username.
+        birth_date : datetime
+            User's birth date.
+        name : str
+            User's name.
+        gender : str
+            User's gender.
+        music_history : MusicHistory
+            User's music history.
+    '''
+    username: str
+    birthdate: datetime
+    name: str
+    gender: str
+    music_history: MusicHistory
 
-    def __lt__(self, other):
-        return self.username < other.username
+    VALID_GENRES = ['W', 'M', 'O', 'NB']
 
-    @property
-    def music_history(self) -> MusicHistory:
+    def __post_init__(self):
+        """Part of the constructor not initialized by the
+           dataclass construction.
+
+        Raises
+        ------
+        UserTypeError
+            If any of the parameters has  an incorrect type.
+        UserError
+            If the birthdate or gender parameters doesn't have
+            the expected format.
         """
-        Return the music history of the user.
 
-        Returns
-        -------
-        MusicHistory
-            The music history of the user
-        """
-        return self._music_history
+        if not isinstance(self.birthdate, str):
+            raise UserTypeError('The birthdate must be of str type.')
+        try:
+            self.birthdate = datetime.fromisoformat(self.birthdate)
+        except TypeError:
+            raise UserError('The birthdate must be in <YYYY-MM-DD> format')
+
+        try:
+            self.gender = self.gender.upper()
+        except AttributeError:
+            raise UserTypeError('The gender must be of str type.')
+        if self.gender not in User.VALID_GENRES:
+            raise UserError('The gender introduced must be one'
+                            f'of the following:{User.VALID_GENRES}')
+
+        if not isinstance(self.name, str):
+            raise UserTypeError('The name must be of str type.')
+
+        if not isinstance(self.username, str):
+            raise UserTypeError('The username must be of str type.')
+
+        if not isinstance(self.music_history, MusicHistory):
+            raise UserTypeError('The music_history must be of'
+                                'MusicHistory type.')
