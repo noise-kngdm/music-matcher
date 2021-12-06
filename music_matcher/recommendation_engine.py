@@ -42,7 +42,7 @@ class RecommendationEngine:
         normalized = {key: 0.0 for key in self._genres.keys()}
         for user_genre, percentage in preferences.items():
             for genre, data in self._genres.items():
-                if user_genre in data['subgenres']:
+                if user_genre == genre or user_genre in data['subgenres']:
                     normalized[genre] += percentage
 
     @classmethod
@@ -70,7 +70,7 @@ class RecommendationEngine:
                 self._matrix[i][j] = affinity
                 self._matrix[j][i] = affinity
 
-    def affinity(user1: User, user2: User) -> float:
+    def affinity(self, user1: User, user2: User) -> float:
         """
         Return the affinity between two users.
 
@@ -92,4 +92,9 @@ class RecommendationEngine:
             When any of the users specified is not amongst the available data.
         """
         try:
-            
+            i = [x for x in self._preferences if x[0] == user1][0]
+            j = [x for x in self._preferences if x[0] == user2][0]
+            return self._matrix[i][j]
+
+        except IndexError as e:
+            raise RecommendationError(f'The users specified doesn\'t exist in the database: {e}')
