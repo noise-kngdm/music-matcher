@@ -8,11 +8,19 @@ genres:
           - jrock
           - krock
           - latin
+          - 'alternative rock'
+          - stoner
+          - hard
+  - punk:
+      - subgenres:
+          - hardcore
+          - screamo
+          - gothic
 
   - pop:
       - subgenres:
           - indie
-          - punk
+          - 'punk pop'
           - electronic
           - kpop
 
@@ -56,12 +64,14 @@ genres:
           - doom
           - heavy
           - death
-          - funeral doom
+          - 'funeral doom'
           - progressive
           - djent
           - stoner
           - 'nu-metal'
           - industrial
+          - metalcore
+          - blackgaze
 
   - folk
     - subgenres:
