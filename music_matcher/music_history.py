@@ -5,11 +5,35 @@ from dataclasses import dataclass
 from music_matcher.song import Song
 
 
+class SongEntryTypeError(TypeError):
+    pass
+
+
 @dataclass
 class SongEntry:
     '''Song with metadata to save into a user music history.'''
     song: Song
     times_played: list[datetime]
+
+    def __post_init__(self):
+        """Part of the constructor not initialized by the
+           dataclass construction.
+
+        Raises
+        ------
+        SongEntryTypeError
+            If any of the parameters has  an incorrect type.
+        """
+        if not isinstance(self.song, Song):
+            raise SongEntryTypeError('The type of song must be Song and '
+                                     f'not {type(self.song)}')
+        if not isinstance(self.times_played, list):
+            raise SongEntryTypeError('The type of times_played must be list'
+                                     f' of datetime and not {type(self.times_played)}')
+        for x in self.times_played:
+            if not isinstance(x, datetime):
+                raise SongEntryTypeError('The type of every item in times_played must be'
+                                         f' datetime and not {type(x)}')
 
     @property
     def genre(self):
@@ -24,7 +48,7 @@ class SongEntry:
         return self.song.genre
 
     @property
-    def number_times_played(self) -> int:
+    def amount_reproductions(self) -> int:
         '''
         Return the amount of times the song was played.
 
@@ -34,6 +58,10 @@ class SongEntry:
             Amount of times the song was played.
         '''
         return len(self.times_played)
+
+
+class MusicHistoryTypeError(Exception):
+    pass
 
 
 class MusicHistory:
@@ -47,10 +75,24 @@ class MusicHistory:
             songs_played : list of SongEntry
                     List of all songs played by an user.
         '''
+        if not isinstance(songs_played, list):
+            raise MusicHistoryTypeError(
+                'The type of songs_played must be list of SongEntry'
+                f' and not {type(songs_played)}')
+
+        for x in songs_played:
+            if not isinstance(x, SongEntry):
+                raise MusicHistoryTypeError(
+                    'The type of every songs_played item must be SongEntry'
+                    f' and not {type(x)}')
+
         self._songs_played = songs_played
 
     def __len__(self) -> int:
         return len(self._songs_played)
+
+    def __repr__(self) -> str:
+        return self._songs_played.__repr__()
 
     @property
     def genres_listened(self) -> set[str]:
