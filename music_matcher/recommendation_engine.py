@@ -87,7 +87,7 @@ class RecommendationEngine:
         self._preferences = [(user, self._normalize_preferences(user.music_history.genre_preferences))
                              for user in users]
 
-        self._affinity_matrix = self._initialize_affinity_matrix()
+        self._initialize_affinity_matrix()
 
     def _normalize_preferences(self, preferences: dict[str:float]) -> dict[str: float]:
         normalized = {genre.basic_genre: 0.0 for genre in self._genres}
