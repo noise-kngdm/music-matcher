@@ -1,9 +1,17 @@
 from datetime import datetime, timedelta
+from functools import lru_cache
 
 import pytest
 
 import music_matcher.song as song
-import music_matcher.music_history as music_history
+import music_matcher.music_history as mh
+from music_matcher.user import User
+
+
+@lru_cache
+def genres():
+    return ['metal', 'rock', 'punk', 'pop', 'classical', 'hip-hop',
+            'electronic']
 
 
 @pytest.fixture
@@ -14,7 +22,7 @@ def songs():
                 song.Song('Turning Point', 'metalcore', 'Killswitch Engage', 2013),
                 song.Song('Holy Diver', 'heavy', 'Dio', 1983),
                 song.Song('Paranoid', 'metal', 'Black Sabbath', 1970),
-                song.Song('War Pigs', ' metal', 'Black Sabbath', 1970),
+                song.Song('War Pigs', 'metal', 'Black Sabbath', 1970),
                 song.Song('Tornado Of Souls', 'trash', 'Megadeth', 1990),
                 song.Song('A Solitary Reign', 'doom', 'Amenra', 2017),
                 song.Song('Bleed', 'djent', 'Meshuggah', 2008),
@@ -119,8 +127,91 @@ def songs():
 @pytest.fixture(params=[[('metal', 10), ('rock', 4), ('hip-hop', 1)]])
 def lucia_music_history(songs, request):
     init_songs = songs(request.param)
-    song_entries = [music_history.SongEntry(init_songs[i],
-                                            datetime.fromisoformat('2020-01-01')
-                                            + timedelta(days=i))
+    song_entries = [mh.SongEntry(init_songs[i],
+                                            [datetime.fromisoformat('2020-01-01')
+                                             + timedelta(days=i)])
                     for i in range(len(init_songs))]
-    return music_history.MusicHistory(song_entries)
+    return mh.MusicHistory(song_entries)
+
+
+@pytest.fixture
+def float_tolerance() -> float:
+    '''Return the tolerance used to compare floating numbers.
+
+    Returns
+    -------
+    float
+        Tolerance that will be used.
+    '''
+    return 0.001
+
+
+@pytest.fixture
+def users():
+    def _return_users(name: str, songs: callable):
+        '''
+        Return an initialized user.
+
+        Parameters
+        ----------
+        name : str
+            The name of the user required. Must be one of the keys of
+            the 'users' dictionary.
+        songs : callable
+            The function returned by the songs factory as fixture.
+        '''
+        users = {
+            'lucia': {
+                'username': 'lucia_manson_666',
+                'name': 'Lucía Manson',
+                'gender': 'W',
+                'birthdate': '2000-03-23',
+                'music_history':
+                    [('metal', 10),
+                     ('rock', 4),
+                     ('hip-hop', 1)],
+
+            },
+            'luis': {
+                'username': 'luisiyo',
+                'name': 'Luis',
+                'gender': 'W',
+                'birthdate': '2000-07-03',
+                'music_history':
+                    [('rock', 10),
+                     ('hip-hop', 1),
+                     ('pop', 7)]
+            },
+            'jorge': {
+                'username': 'luisiyo',
+                'name': 'Luis',
+                'gender': 'W',
+                'birthdate': '1970-12-15',
+                'music_history':
+                    [('punk', 10),
+                     ('rock', 4)]
+            },
+            'daniel': {
+                'username': 'luisiyo',
+                'name': 'Luis',
+                'gender': 'W',
+                'birthdate': '1996-08-05',
+                'music_history':
+                    [('metal', 8),
+                     ('rock', 10),
+                     ('jazz', 3)]
+            },
+        }
+        song_date = valid_date()
+        user = users[name]
+        song_entries = [mh.SongEntry(song, [song_date])
+                        for song in songs(user['music_history'])]
+        del user['music_history']
+
+        return User(**user, music_history=mh.MusicHistory(song_entries))
+
+    return _return_users
+
+
+def valid_date() -> datetime:
+    return datetime.fromisoformat('2001-12-01')

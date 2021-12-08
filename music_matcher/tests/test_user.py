@@ -1,4 +1,5 @@
 import pytest
+from assertpy import assert_that
 
 from music_matcher.user import User, UserError, UserTypeError
 from music_matcher.music_history import MusicHistory
@@ -12,8 +13,9 @@ from music_matcher.music_history import MusicHistory
 @pytest.mark.parametrize('gender', ['W', 'M', 'O', 'NB'])
 def test_user_init(lucia_music_history: MusicHistory, gender: str,
                    name: str, username: str, birthdate: str):
-    User(username=username, name=name, gender=gender,
-         birthdate=birthdate, music_history=lucia_music_history)
+    user = User(username=username, name=name, gender=gender,
+                birthdate=birthdate, music_history=lucia_music_history)
+    assert_that(user).is_type_of(User)
 
 
 @pytest.mark.parametrize('gender,name,username,birthdate,expected_exception', [

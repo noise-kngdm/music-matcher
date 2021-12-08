@@ -1,4 +1,5 @@
 import pytest
+from assertpy import assert_that
 
 from music_matcher.song import Song, SongError, SongTypeError
 
@@ -8,7 +9,8 @@ from music_matcher.song import Song, SongError, SongTypeError
     ('Nadie es Leal', 'electronic', 'VVV[Trippin\' you', 2021)
 ])
 def test_song_init(title: str, genre: str, artist: str, year: int):
-    Song(title=title, genre=genre, artist=artist, year=year)
+    song = Song(title=title, genre=genre, artist=artist, year=year)
+    assert_that(song).is_type_of(Song)
 
 
 @pytest.mark.parametrize('title,genre,artist,year,expected_exception', [
