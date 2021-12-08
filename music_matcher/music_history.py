@@ -134,7 +134,7 @@ class MusicHistory:
         """
         total_entries = self.total_entries
         preferences = {k: 0 for k in self.genres_listened}
-        return dict(map(lambda x: (x[0], sum(gentrific:=
+        return dict(map(lambda x: (x[0], sum(
             [song.amount_reproductions for song in self._songs_played
              if song.genre == x[0]
              ])/total_entries), preferences.items())
