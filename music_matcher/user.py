@@ -52,7 +52,7 @@ class User:
         """
 
         if not isinstance(self.birthdate, str):
-            raise UserTypeError('The birthdate must be of str type.')
+            raise UserTypeError('The birthdate must be of str type')
         try:
             self.birthdate = datetime.fromisoformat(self.birthdate)
         except TypeError:
@@ -61,17 +61,17 @@ class User:
         try:
             self.gender = self.gender.upper()
         except AttributeError:
-            raise UserTypeError('The gender must be of str type.')
+            raise UserTypeError('The gender must be of str type')
         if self.gender not in User.VALID_GENRES:
             raise UserError('The gender introduced must be one'
-                            f'of the following:{User.VALID_GENRES}')
+                            f' of the following:{User.VALID_GENRES}')
 
         if not isinstance(self.name, str):
             raise UserTypeError('The name must be of str type.')
 
         if not isinstance(self.username, str):
-            raise UserTypeError('The username must be of str type.')
+            raise UserTypeError('The username must be of str type')
 
         if not isinstance(self.music_history, MusicHistory):
             raise UserTypeError('The music_history must be of'
-                                'MusicHistory type.')
+                                ' MusicHistory type')

@@ -40,15 +40,15 @@ class Song:
 
         """
         if not isinstance(self.title, str):
-            raise SongTypeError('The title must be of str type.')
+            raise SongTypeError('The title must be of str type')
 
         if not isinstance(self.genre, str):
-            raise SongTypeError('The genre must be of str type.')
+            raise SongTypeError('The genre must be of str type')
 
         if not isinstance(self.artist, str):
-            raise SongTypeError('The artist must be of str type.')
+            raise SongTypeError('The artist must be of str type')
 
         if not isinstance(self.year, int):
-            raise SongTypeError('The year must be of int type.')
+            raise SongTypeError('The year must be of int type')
         if self.year < 0:
-            raise SongError('The year attribute must be a valid year.')
+            raise SongError('The year attribute must be a valid year')
