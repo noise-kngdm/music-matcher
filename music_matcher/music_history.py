@@ -105,7 +105,7 @@ class MusicHistory:
         set[str]
             Set with all the music genres listened by the user.
         '''
-        return {x for x in self._songs_played.genre}
+        return {x.genre for x in self._songs_played}
 
     @property
     def total_entries(self) -> int:
@@ -117,7 +117,7 @@ class MusicHistory:
         int
             Total amount of songs played by the user.
         '''
-        return sum([x.times_played for x in self._songs_played])
+        return sum([len(x.times_played) for x in self._songs_played])
 
     @property
     def genre_preferences(self) -> dict[str:float]:
@@ -132,10 +132,10 @@ class MusicHistory:
             and the value a number representing the percentage of listening
             time that the user spent listening to that genre.
         """
-        total_entries = self._music_history.total_entries
-        preferences = {k: 0 for k in self._music_history.genres_listened()}
-        return dict(map(lambda x: (x[0], sum(
-            [song.times_played for song in self._songs_played
+        total_entries = self.total_entries
+        preferences = {k: 0 for k in self.genres_listened}
+        return dict(map(lambda x: (x[0], sum(gentrific:=
+            [song.amount_reproductions for song in self._songs_played
              if song.genre == x[0]
              ])/total_entries), preferences.items())
             )
