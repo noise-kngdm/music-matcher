@@ -1,4 +1,12 @@
 [[package]]
+name = "assertpy"
+version = "1.1"
+description = "Simple assertion library for unit testing in python with a fluent API"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "astroid"
 version = "2.9.0"
 description = "An abstract syntax tree for Python with inference support."
@@ -214,9 +222,12 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9 <3.11"
-content-hash = "ddf9f015b176a7b181d891ac00b0f1b9db4b03a22c0cac110f9385dbc580c15d"
+content-hash = "a774b9876758b9c9809f169432d9cafa42938af0bdbb0c6e4615cde43bff1bdc"
 
 [metadata.files]
+assertpy = [
+    {file = "assertpy-1.1.tar.gz", hash = "sha256:acc64329934ad71a3221de185517a43af33e373bb44dc05b5a9b174394ef4833"},
+]
 astroid = [
     {file = "astroid-2.9.0-py3-none-any.whl", hash = "sha256:776ca0b748b4ad69c00bfe0fff38fa2d21c338e12c84aa9715ee0d473c422778"},
     {file = "astroid-2.9.0.tar.gz", hash = "sha256:5939cf55de24b92bda00345d4d0659d01b3c7dafb5055165c330bc7c568ba273"},
