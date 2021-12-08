@@ -73,8 +73,8 @@ genres:
           - metalcore
           - blackgaze
 
-  - folk
-    - subgenres:
+  - folk:
+      - subgenres:
         - galician
         - dark
         - indie
