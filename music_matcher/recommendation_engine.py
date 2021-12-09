@@ -9,6 +9,10 @@ class RecommendationError(ValueError):
     pass
 
 
+class RecommendationFileError(OSError):
+    pass
+
+
 class RecommendationTypeError(TypeError):
     pass
 
@@ -41,8 +45,15 @@ class RecommendationEngine:
         genres_yaml : str
             File containing information about the valid genres and their
             respective subgenres.
-        users : set(User)
+        users : list[User]
             Set contaning the users whose affinity should be calculated.
+
+        Raises
+        ------
+        RecommendationTypeError
+            When the type of any of the parameters is not the one expected.
+        RecommendationError
+            When the number of users is less than MIN_NUM_USERS.
         """
         if not isinstance(users, list):
             raise RecommendationTypeError(
@@ -65,55 +76,81 @@ class RecommendationEngine:
                 'The minimum number of users needed is '
                 f'{RecommendationEngine.MIN_NUM_USERS}')
 
+        self._genres, self._yaml_version = RecommendationEngine.load_yaml_file(genres_yaml)
+
+        self._preferences = [(user.username,
+                              self._normalize_preferences(user.music_history.genre_preferences))
+                             for user in sorted(users)]
+
+        self._initialize_affinity_matrix()
+
+    @classmethod
+    def load_yaml_file(cls, genres_yaml: str) -> set[Genre]:
+        """
+        Return a set of Genres and the version of a genres yaml file.
+
+        Parameters
+        ----------
+        genres_yaml : str
+            The path of the file from the root directory of the project.
+
+        Returns
+        -------
+        genres : set[Genres]
+            Set with the genres and subgenres loaded from the file.
+        version : str
+            Version of the genres_yaml file.
+
+        Raises
+        ------
+        RecommendationParsingError
+            When the format of the genres_yaml file is not valid.
+        RecommendationFileError
+            When the file could not be opened.
+        """
         try:
             with open(genres_yaml, 'r') as f:
                 yaml_file = safe_load(f)
                 try:
-                    self._genres = {Genre(genre, frozenset(subgenres[0]['subgenres']))
-                                    for x in yaml_file['genres']
-                                    for genre, subgenres in x.items()}
-                except TypeError as e:
+                    genres = {Genre(genre, frozenset(subgenres[0]['subgenres']))
+                              for x in yaml_file['genres']
+                              for genre, subgenres in x.items()}
+                    version = yaml_file['version']
+                except (TypeError, IndexError) as e:
                     raise RecommendationParsingError(
                         'Error while parsing the yaml file, check that it has '
                         f'a valid syntax: {e}')
-
-                self._yaml_version = yaml_file['version']
         except OSError as e:
-            raise RecommendationError(f'Error while opening the {genres_yaml} file: {e}')
+            raise RecommendationFileError(f'Error while opening the {genres_yaml} file: {e}')
         except YAMLError as e:
             raise(RecommendationParsingError(
                 f"Error while loading the {genres_yaml} file: {e}"))
 
-        self._preferences = [(user, self._normalize_preferences(user.music_history.genre_preferences))
-                             for user in users]
+        return genres, version
 
-        self._initialize_affinity_matrix()
-
-    def _normalize_preferences(self, preferences: dict[str:float]) -> dict[str: float]:
+    def _normalize_preferences(self, preferences: dict[str:float]) -> dict[str:float]:
         normalized = {genre.basic_genre: 0.0 for genre in self._genres}
         for user_genre, percentage in preferences.items():
             for genre in self._genres:
-                if user_genre == genre or user_genre in genre.subgenres:
+                if user_genre == genre.basic_genre or user_genre in genre.subgenres:
                     normalized[genre.basic_genre] += percentage
                     break
         return normalized
 
     @classmethod
-    def _calculate_affinity(cls, user1: dict[str:float],
-                            user2: dict[str:float]) -> float:
-        percentages_1 = list(user1.values())
-        percentages_2 = list(user2.values())
+    def _calculate_affinity(cls, user1: dict[str:float], user2: dict[str:float]) -> float:
+        percentages_1 = [user1[k] for k in sorted(user1.keys())]
+        percentages_2 = [user2[k] for k in sorted(user2.keys())]
         affinity_list = [percentages_1[i]*percentages_2[i]
-                         for i in range(len(user1))]
+                         for i in range(len(user2))]
 
         return sum(affinity_list)
 
     def _initialize_affinity_matrix(self) -> list[list[float]]:
         num_users = len(self._preferences)
-        self._matrix = [[0] * num_users] * num_users
+        self._matrix = [[0] * num_users for _ in range(num_users)]
         for i in range(num_users):
             self._matrix[i][i] = 1
-
         for i in range(num_users):
             preference_1 = self._preferences[i]
             for j in range(i+1, num_users):
@@ -123,16 +160,19 @@ class RecommendationEngine:
                 self._matrix[i][j] = affinity
                 self._matrix[j][i] = affinity
 
-    def affinity(self, user1: User, user2: User) -> float:
+    def _find_index(self, user: User) -> int:
+        for i in range(len(self._preferences)):
+            if user.username == self._preferences[i][0]:
+                return i
+
+    def affinity(self, users: tuple[User, User]) -> float:
         """
         Return the affinity between two users.
 
         Parameters
         ----------
-        user1 : User
-            First user.
-        user2 : User
-            Second user.
+        users : tuple[User, User]
+            Users whose affinity is requested.
 
         Returns
         -------
@@ -145,9 +185,10 @@ class RecommendationEngine:
             When any of the users specified is not amongst the available data.
         """
         try:
-            i = [x for x in self._preferences if x[0] == user1][0]
-            j = [x for x in self._preferences if x[0] == user2][0]
+            i = self._find_index(users[0])
+            j = self._find_index(users[1])
             return self._matrix[i][j]
 
         except IndexError as e:
-            raise RecommendationError(f'The users specified doesn\'t exist in the database: {e}')
+            raise RecommendationError('The users specified doesn\'t exist'
+                                      f'in the database: {e}')
