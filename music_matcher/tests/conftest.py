@@ -71,7 +71,7 @@ def songs():
                 song.Song('Hey Jude', 'pop', 'The Beatles', 1968),
                 song.Song('Marta, Sebas, Guille y los demás', 'pop', 'Amaral', 2005),
                 song.Song('Your Song', 'pop', 'Elton John', 1970),
-                song.Song('Please, please, please, let me get what I want', 'indie', 'The Smiths', 1984),
+                song.Song('Please, please, please, let me get what I want', 'indie pop', 'The Smiths', 1984),
                 song.Song('We are the world', 'pop', 'Michael Jackson', 1985),
                 song.Song('Hallelujah', 'pop', 'Jeff Buckley', 1994),
                 song.Song('Stand by me', 'pop', 'Oasis', 1997),
@@ -162,7 +162,7 @@ def users():
         '''
         users = {
             'lucia': {
-                'username': 'lucia_manson_666',
+                'username': 'lucia',
                 'name': 'Lucía Manson',
                 'gender': 'W',
                 'birthdate': '2000-03-23',
@@ -173,9 +173,9 @@ def users():
 
             },
             'luis': {
-                'username': 'luisiyo',
+                'username': 'luis',
                 'name': 'Luis',
-                'gender': 'W',
+                'gender': 'O',
                 'birthdate': '2000-07-03',
                 'music_history':
                     [('rock', 10),
@@ -183,18 +183,18 @@ def users():
                      ('pop', 7)]
             },
             'jorge': {
-                'username': 'luisiyo',
-                'name': 'Luis',
-                'gender': 'W',
+                'username': 'jorge',
+                'name': 'Jorge',
+                'gender': 'M',
                 'birthdate': '1970-12-15',
                 'music_history':
                     [('punk', 10),
                      ('rock', 4)]
             },
             'daniel': {
-                'username': 'luisiyo',
-                'name': 'Luis',
-                'gender': 'W',
+                'username': 'daniel',
+                'name': 'Daniel',
+                'gender': 'NB',
                 'birthdate': '1996-08-05',
                 'music_history':
                     [('metal', 8),
