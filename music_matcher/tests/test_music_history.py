@@ -27,7 +27,7 @@ def get_song(songs, request) -> Song:
     request.param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
 
     Returns
     -------
@@ -148,7 +148,7 @@ def test_music_history_init(songs, times_played, songs_param: list[tuple[str, in
     songs_param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
     """
     song_entries = [mh.SongEntry(song, times_played) for song in songs(songs_param)]
     music_history = mh.MusicHistory(song_entries)
@@ -187,7 +187,7 @@ def test_music_history_len(songs, times_played, songs_param: list[tuple[str, int
     songs_param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
     '''
     song_entries = [mh.SongEntry(song, times_played) for song in songs(songs_param)]
     music_history = mh.MusicHistory(song_entries)
@@ -211,7 +211,7 @@ def test_music_history_genres_listened(songs, times_played, songs_param: list[tu
     songs_param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
     '''
     song_entries = [mh.SongEntry(song, times_played) for song in songs(songs_param)]
     music_history = mh.MusicHistory(song_entries)
@@ -235,7 +235,7 @@ def test_music_history_total_entries(songs, times_played, songs_param: list[tupl
     songs_param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
     '''
     song_entries = [mh.SongEntry(song, times_played) for song in songs(songs_param)]
     music_history = mh.MusicHistory(song_entries)
@@ -279,7 +279,7 @@ def test_music_history_genre_preferences(songs, songs_param: list[tuple[str, int
     songs_param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
     times_played : list[datetime]
         List with the dates when each song was played.
     preferences : dict[str:float]

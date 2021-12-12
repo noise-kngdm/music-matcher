@@ -173,7 +173,7 @@ def lucia_music_history(songs, request) -> mh.MusicHistory:
     request.param : list[tuple[str,int]]
         List composed of tuples of str and int, being the string the name of the music
         genre and the int the number of songs (up to 10) that will be added from that
-        music genre to the MusicHistory objet returned.
+        music genre to the MusicHistory object returned.
 
     Returns
     -------
