@@ -6,7 +6,8 @@ from music_matcher.song import Song
 
 
 class SongEntryTypeError(TypeError):
-    pass
+    '''Exception that will be raised when a SongEntry method
+       is called using a parameter with a wrong type.'''
 
 
 @dataclass
@@ -30,10 +31,10 @@ class SongEntry:
         if not isinstance(self.times_played, list):
             raise SongEntryTypeError('The type of times_played must be list'
                                      f' of datetime and not {type(self.times_played)}')
-        for x in self.times_played:
-            if not isinstance(x, datetime):
+        for timestamp in self.times_played:
+            if not isinstance(timestamp, datetime):
                 raise SongEntryTypeError('The type of every item in times_played must be'
-                                         f' datetime and not {type(x)}')
+                                         f' datetime and not {type(timestamp)}')
 
     @property
     def genre(self):
@@ -61,7 +62,8 @@ class SongEntry:
 
 
 class MusicHistoryTypeError(Exception):
-    pass
+    '''Exception that will be raised when a MusicHistory method
+       is called using a parameter with a wrong type.'''
 
 
 class MusicHistory:
@@ -80,11 +82,11 @@ class MusicHistory:
                 'The type of songs_played must be list of SongEntry'
                 f' and not {type(songs_played)}')
 
-        for x in songs_played:
-            if not isinstance(x, SongEntry):
+        for song in songs_played:
+            if not isinstance(song, SongEntry):
                 raise MusicHistoryTypeError(
                     'The type of every songs_played item must be SongEntry'
-                    f' and not {type(x)}')
+                    f' and not {type(song)}')
 
         self._songs_played = songs_played
 

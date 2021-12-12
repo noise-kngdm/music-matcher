@@ -1,3 +1,5 @@
+"""Module that represents a RecommendationEngine."""
+
 from dataclasses import dataclass
 
 from yaml import safe_load, YAMLError
@@ -6,19 +8,23 @@ from music_matcher.user import User
 
 
 class RecommendationError(ValueError):
-    pass
+    '''Exception that will be raised when the RecommendationEngine class
+       has encountered a wrong value in the parameters of a method.'''
 
 
 class RecommendationFileError(OSError):
-    pass
+    '''Exception that will be raised when a RecommendationEngine method
+       is called using a wrong file path.'''
 
 
 class RecommendationTypeError(TypeError):
-    pass
+    '''Exception that will be raised when a RecommendationEngine method
+       is called using a parameter with a wrong type.'''
 
 
 class RecommendationParsingError(YAMLError):
-    pass
+    '''Exception that will be raised when a RecommendationEngine method
+       is called using a yaml file with a wrong format.'''
 
 
 @dataclass(frozen=True)
@@ -65,11 +71,11 @@ class RecommendationEngine:
                 'The genres_yaml parameter must be of type str,'
                 f' and not {type(genres_yaml)}')
 
-        for x in users:
-            if not isinstance(x, User):
+        for user in users:
+            if not isinstance(user, User):
                 raise RecommendationTypeError(
                     'Every item in users must be of type User,'
-                    f' and not {type(x)}')
+                    f' and not {type(user)}')
 
         if not len(users) >= RecommendationEngine.MIN_NUM_USERS:
             raise RecommendationError(
@@ -109,22 +115,23 @@ class RecommendationEngine:
             When the file could not be opened.
         """
         try:
-            with open(genres_yaml, 'r') as f:
-                yaml_file = safe_load(f)
+            with open(genres_yaml, 'r', encoding='utf-8') as genres_file:
+                yaml_file = safe_load(genres_file)
                 try:
                     genres = {Genre(genre, frozenset(subgenres[0]['subgenres']))
                               for x in yaml_file['genres']
                               for genre, subgenres in x.items()}
                     version = yaml_file['version']
-                except (TypeError, IndexError) as e:
+                except (TypeError, IndexError) as error:
                     raise RecommendationParsingError(
                         'Error while parsing the yaml file, check that it has '
-                        f'a valid syntax: {e}')
-        except OSError as e:
-            raise RecommendationFileError(f'Error while opening the {genres_yaml} file: {e}')
-        except YAMLError as e:
+                        f'a valid syntax: {error}') from error
+        except OSError as error:
+            raise RecommendationFileError(f'Error while opening the {genres_yaml}'
+                                          ' file: {error}') from error
+        except YAMLError as error:
             raise(RecommendationParsingError(
-                f"Error while loading the {genres_yaml} file: {e}"))
+                f"Error while loading the {genres_yaml} file: {error}")) from error
 
         return genres, version
 
@@ -161,9 +168,10 @@ class RecommendationEngine:
                 self._matrix[j][i] = affinity
 
     def _find_index(self, user: User) -> int:
-        for i in range(len(self._preferences)):
-            if user.username == self._preferences[i][0]:
+        for i, elem in enumerate(self._preferences):
+            if user.username == elem[0]:
                 return i
+        raise RecommendationError(f'The user specified {user.username} does not exists.')
 
     def affinity(self, users: tuple[User, User]) -> float:
         """
@@ -189,6 +197,6 @@ class RecommendationEngine:
             j = self._find_index(users[1])
             return self._matrix[i][j]
 
-        except IndexError as e:
+        except IndexError as error:
             raise RecommendationError('The users specified doesn\'t exist'
-                                      f'in the database: {e}')
+                                      f'in the database: {error}') from error

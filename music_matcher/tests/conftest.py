@@ -1,3 +1,5 @@
+'''Fixtures and common methods for the test files.'''
+
 from datetime import datetime, timedelta
 from functools import lru_cache
 
@@ -10,13 +12,45 @@ from music_matcher.user import User
 
 @lru_cache
 def genres():
+    '''Return all the genres that currently have test samples.
+
+    Returns
+    -------
+    list[str]
+        List with a string per genre with test samples.
+    '''
     return ['metal', 'rock', 'punk', 'pop', 'classical', 'hip-hop',
             'electronic']
 
 
 @pytest.fixture
 def songs():
-    def _return_songs(genres: list[tuple[str, int]]):
+    '''Song factory as fixture.
+
+    Fixture that returns a function that can be used to obtain a list with
+    songs pertaining to several music genres.
+
+    Returns
+    -------
+    Callable
+        Method that can be used to obtain a list with songs pertaining to different music genres.
+    '''
+    def _return_songs(genres: list[tuple[str, int]]) -> list[song.Song]:
+        '''
+        Return a list with songs pertaining to different music genres.
+
+        Parameters
+        ----------
+        genres : list[tuple[str,int]]
+            List composed of tuples of str and int, being the string the name of the music
+            genre and the int the number of songs (up to 10) that will be added from that
+            music genre.
+
+        Returns
+        -------
+        list[song.Song]
+            List with the songs requested.
+        '''
         songs = {
             'metal': [
                 song.Song('Turning Point', 'metalcore', 'Killswitch Engage', 2013),
@@ -71,7 +105,8 @@ def songs():
                 song.Song('Hey Jude', 'pop', 'The Beatles', 1968),
                 song.Song('Marta, Sebas, Guille y los demás', 'pop', 'Amaral', 2005),
                 song.Song('Your Song', 'pop', 'Elton John', 1970),
-                song.Song('Please, please, please, let me get what I want', 'indie pop', 'The Smiths', 1984),
+                song.Song('Please, please, please, let me get what I want',
+                          'indie pop', 'The Smiths', 1984),
                 song.Song('We are the world', 'pop', 'Michael Jackson', 1985),
                 song.Song('Hallelujah', 'pop', 'Jeff Buckley', 1994),
                 song.Song('Stand by me', 'pop', 'Oasis', 1997),
@@ -125,7 +160,26 @@ def songs():
 
 
 @pytest.fixture(params=[[('metal', 10), ('rock', 4), ('hip-hop', 1)]])
-def lucia_music_history(songs, request):
+def lucia_music_history(songs, request) -> mh.MusicHistory:
+    '''
+    Return Lucia's music history.
+
+    Parameters
+    ----------
+    songs : fixture
+        Song's factory as fixture.
+    request : SubRequest:
+        Fixture construction used to obtain the fixture's params.
+    request.param : list[tuple[str,int]]
+        List composed of tuples of str and int, being the string the name of the music
+        genre and the int the number of songs (up to 10) that will be added from that
+        music genre to the MusicHistory objet returned.
+
+    Returns
+    -------
+    mh.MusicHistory
+        Lucia's music history.
+    '''
     init_songs = songs(request.param)
     song_entries = [mh.SongEntry(init_songs[i],
                                             [datetime.fromisoformat('2020-01-01')
@@ -148,7 +202,17 @@ def float_tolerance() -> float:
 
 @pytest.fixture
 def users():
-    def _return_users(name: str, songs: callable):
+    '''User factory as fixture.
+
+    Fixture that returns a function that can be used to obtain an initialized
+    User instance.
+
+    Returns
+    -------
+    Callable
+        Method that can be used to obtain an User instance.
+    '''
+    def _return_users(name: str, songs: callable) -> list[User]:
         '''
         Return an initialized user.
 
@@ -159,6 +223,11 @@ def users():
             the 'users' dictionary.
         songs : callable
             The function returned by the songs factory as fixture.
+
+        Returns
+        -------
+        User
+            The user requested.
         '''
         users = {
             'lucia': {
@@ -214,4 +283,11 @@ def users():
 
 
 def valid_date() -> datetime:
+    '''Fixture that return a valid sample datetime.
+
+    Returns
+    -------
+    datetime
+        Sample datetime instance.
+    '''
     return datetime.fromisoformat('2001-12-01')

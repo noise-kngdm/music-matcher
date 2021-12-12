@@ -1,4 +1,6 @@
-from datetime import datetime, timedelta
+'''Tests for the music_history.py file.'''
+
+from datetime import timedelta
 
 import pytest
 from assertpy import assert_that

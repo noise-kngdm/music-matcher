@@ -6,11 +6,13 @@ from music_matcher.music_history import MusicHistory
 
 
 class UserError(ValueError):
-    pass
+    '''Exception that will be raised when the User class
+       has encountered a wrong value in the parameters of a method.'''
 
 
 class UserTypeError(ValueError):
-    pass
+    '''Exception that will be raised when a User method
+       is called using a parameter with a wrong type.'''
 
 
 @dataclass(order=True)
@@ -55,13 +57,13 @@ class User:
             raise UserTypeError('The birthdate must be of str type')
         try:
             self.birthdate = datetime.fromisoformat(self.birthdate)
-        except TypeError:
-            raise UserError('The birthdate must be in <YYYY-MM-DD> format')
+        except TypeError as error:
+            raise UserError('The birthdate must be in <YYYY-MM-DD> format') from error
 
         try:
             self.gender = self.gender.upper()
-        except AttributeError:
-            raise UserTypeError('The gender must be of str type')
+        except AttributeError as error:
+            raise UserTypeError('The gender must be of str type') from error
         if self.gender not in User.VALID_GENRES:
             raise UserError('The gender introduced must be one'
                             f' of the following:{User.VALID_GENRES}')

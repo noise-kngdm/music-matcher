@@ -6,11 +6,13 @@ from dataclasses import dataclass
 
 
 class SongError(ValueError):
-    pass
+    '''Exception that will be raised when the Song class
+       has encountered a wrong value in the parameters of a method.'''
 
 
-class SongTypeError(ValueError):
-    pass
+class SongTypeError(TypeError):
+    '''Exception that will be raised when a Song method
+       is called using a parameter with a wrong type.'''
 
 
 @dataclass

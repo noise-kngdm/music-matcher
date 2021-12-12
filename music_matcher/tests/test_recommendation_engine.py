@@ -1,3 +1,5 @@
+'''Tests for the recommendation_engine.py file.'''
+
 import pytest
 from assertpy import assert_that
 
@@ -12,6 +14,7 @@ WRONG_GENRES_PATH = 'music_matcher/tests/data/wrong_genres.yaml'
     ['lucia', 'luis', 'jorge', 'daniel']
 ])
 def test_recommendation_init(songs, users, user_names):
+    
     users = [users(username, songs) for username in user_names]
     engine = rec.RecommendationEngine(GENRES_PATH, users)
     assert_that(engine).is_type_of(rec.RecommendationEngine)
@@ -45,11 +48,11 @@ def loaded_genres():
 ])
 def test_recommendation_normalize(monkeypatch, preferences, float_tolerance,
                                   normalized_preferences, loaded_genres):
-    def fake_init(obj):
+    def fake_init(obj, **kwargs):
         pass
     monkeypatch.setattr(rec.RecommendationEngine, '__init__', fake_init)
 
-    rec_eng = rec.RecommendationEngine()
+    rec_eng = rec.RecommendationEngine(genres_yaml=None, users=None)
     rec_eng._genres = loaded_genres
     computed_preferences = rec_eng._normalize_preferences(preferences)
     used_keys = 0
