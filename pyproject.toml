@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "music-matcher"
-version = "0.1.0"
+version = "v0.3.0"
 description = "Connect with people based on your music tastes."
 authors = ["gonzz <gonzalo.abril@wazuh.com>"]
 license = "GPL-3.0"
@@ -10,10 +10,10 @@ python = ">=3.9 <3.11"
 invoke = "^1.6.0"
 pylint = "^2.11.1"
 PyYAML = "^6.0"
-pytest = "^6.2.5"
-assertpy = "^1.1"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+assertpy = "^1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
