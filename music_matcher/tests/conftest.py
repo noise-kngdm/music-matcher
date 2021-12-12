@@ -5,7 +5,7 @@ from functools import lru_cache
 
 import pytest
 
-import music_matcher.song as song
+from music_matcher import song
 import music_matcher.music_history as mh
 from music_matcher.user import User
 
