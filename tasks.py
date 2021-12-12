@@ -7,18 +7,6 @@ To list all the available tasks run: 'inv --list'
 from invoke import task
 
 
-def poetry_run(ctx, command: str, pty: bool = True):
-    """
-    Runs a command inside poetry's venv.
-
-    Parameters
-    ----------
-    command : str
-        The command that will be ran.
-    """
-    ctx.run(f'poetry run {command}', pty=pty)
-
-
 @task(help={'style': 'Analyze code style too'})
 def check(ctx, style=False):
     """
@@ -30,12 +18,12 @@ def check(ctx, style=False):
         If code style will be checked too.
     """
     pylint_check = ['music_matcher', 'tasks.py']
-    poetry_run(ctx, 'pylint ' + ('-E ' if not style else '') + ' '.join(pylint_check))
+    ctx.run('pylint ' + ('-E ' if not style else '') + ' '.join(pylint_check))
 
 
 @task(help={'keyword': 'Filter the test list.',
             'capture_output': 'Print stdout and stderr.'})
-def test(ctx, keyword='', capture_output=False):
+def test(ctx, keyword='', capture_output=True):
     """
     Run the unit tests.
 
@@ -47,13 +35,8 @@ def test(ctx, keyword='', capture_output=False):
     capture_output : bool
         If set to True, pytest will capture and show stdout and stderr too.
     """
-    poetry_run(ctx, f'poetry run pytest {"-k keyword" if keyword else ""} '
-               f'{""if not capture_output else "-rP"}')
+    args = []
+    if keyword:
+        args.append(f'k {keyword}')
 
-
-@task()
-def install(ctx):
-    """
-    Install the required dependencies.
-    """
-    ctx.run('poetry install', pty=True)
+    ctx.run(' -'.join(['pytest'] + args), pty=capture_output)

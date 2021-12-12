@@ -31,7 +31,13 @@ poetry install;
 After this, the project is up and ready to use!
 
 ## Usage
-Once the dependencies are installed, the project can be used via the **invoke** task manager.
+To execute the project, **it's necessary to activate the virtual environment** that Poetry prepared for the project after installing the dependencies every time. In order to do that, you only need to execute:
+```zsh
+poetry shell
+```  
+
+**NOTE**:  
+To exit the virtual environment you need to either execute `exit` or press `Ctrl+d`, which has the same effect.  
 
 ### Checking the programmed entities syntax
 To check the syntax of the programmed entities, you only need to `cd` into the root of the project and execute `inv check`.
