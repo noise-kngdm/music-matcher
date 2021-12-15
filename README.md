@@ -54,4 +54,5 @@ There's a detailed description of every user [here](docs/users.md).
 ### Development decisions
 There's a detailed explanation of why every tool was selected [here](docs/development_decisions.md).
 
-
+### Development notes
+There's a detailed explanation on why our unit tests comply with the **F.I.R.S.T** principles in the [docs](docs/development_notes.md).
