@@ -1,3 +1,4 @@
+
 # Music-matcher
 Connect with people based on your music tastes.
 
@@ -40,6 +41,11 @@ To exit the virtual environment you need to either execute `exit` or press `Ctrl
 
 ### Checking the programmed entities syntax
 To check the syntax of the programmed entities, you only need to `cd` into the root of the project and execute `inv check`.
+
+### Testing the project
+To test the different files of the project, it is necessary to have the root folder of the project as the working directory and run `inv test`. **Invoke** will deal with executing *pytest* inside the virtual environment of the project and will show the output properly formated.  
+
+If you only need to execute tests for a class or file, you can use the `-k/--keyword` flag to indicate which tests should be executed, and it will not load the rest of them.
   
 ## Additional documentation
 ### User stories
@@ -47,3 +53,6 @@ There's a detailed description of every user [here](docs/users.md).
 
 ### Development decisions
 There's a detailed explanation of why every tool was selected [here](docs/development_decisions.md).
+
+### Development notes
+There's a detailed explanation on why our unit tests comply with the **F.I.R.S.T** principles in the [docs](docs/development_notes.md).
