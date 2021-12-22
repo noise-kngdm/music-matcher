@@ -16,7 +16,7 @@ First it's necessary to install [**Poetry**](https://python-poetry.org/), the de
 
 To install Poetry in a Linux system, it's necessary to run the following command [according with the installation manual](https://python-poetry.org/docs/master/#installation):
 ```zsh
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 - && \
 ```  
 
 #### Install the rest of the dependencies
