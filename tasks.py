@@ -40,3 +40,11 @@ def test(ctx, keyword='', capture_output=True):
         args.append(f'k {keyword}')
 
     ctx.run(' -'.join(['pytest'] + args), pty=capture_output)
+
+
+@task
+def docker(ctx):
+    """
+    Run the unit tests inside a container.
+    """
+    ctx.run("docker run -t -v $(pwd):/music_matcher/test gonzz/music_matcher", pty=True)
