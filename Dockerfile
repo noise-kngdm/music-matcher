@@ -8,11 +8,11 @@ RUN groupadd -g 1000 -r music_matcher && \
 
 USER music_matcher
 
-COPY pyproject.toml poetry.lock /app/
-
 WORKDIR /app/test/
 
 ENV PATH=$PATH:/home/music_matcher/.local/bin
+
+COPY pyproject.toml poetry.lock /app/
 
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     poetry config virtualenvs.create false && \
