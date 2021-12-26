@@ -11,9 +11,9 @@ To install the project, it's necessary to have a **Python3 3.5+** interpreter av
 
 ### Install the dependencies
 #### Install Poetry (required)
-First it's necessary to install [**Poetry**](https://python-poetry.org/), the dependency manager of the project, which ensures that the project is running on an environment with all the required dependencies.  
+First, it's necessary to install [**Poetry**](https://python-poetry.org/), the dependency manager of the project, which ensures that the project is running on an environment with all the required dependencies.  
 
-To install Poetry in a Linux system, it's necessary to run the following command [according with the installation manual](https://python-poetry.org/docs/master/#installation):
+To install Poetry in a Linux system, it's necessary to run the following command [according to the installation manual](https://python-poetry.org/docs/master/#installation):
 ```zsh
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 - && \
 ```  
