@@ -8,9 +8,9 @@ RUN groupadd -g 1000 -r music_matcher && \
 
 USER music_matcher
 
-COPY pyproject.toml poetry.lock /music_matcher/
+COPY pyproject.toml poetry.lock /app/
 
-WORKDIR /music_matcher/test/
+WORKDIR /app/test/
 
 ENV PATH=$PATH:/home/music_matcher/.local/bin
 
