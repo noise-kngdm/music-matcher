@@ -42,9 +42,9 @@ def test(ctx, keyword='', capture_output=True):
     ctx.run(' -'.join(['pytest'] + args), pty=capture_output)
 
 
-@task
-def docker(ctx):
+@task(help={'tag': 'Tag that will be pulled from DockerHub'})
+def docker(ctx, tag='main'):
     """
     Run the unit tests inside a container.
     """
-    ctx.run("docker run -t -v $(pwd):/music_matcher/test gonzz/music_matcher", pty=True)
+    ctx.run(f"docker run -t -v $(pwd):/app/test gonzz/music_matcher:{tag}", pty=True)
