@@ -47,4 +47,4 @@ def docker(ctx, tag='main'):
     """
     Run the unit tests inside a container.
     """
-    ctx.run(f"docker run  --pull=always -t -v $(pwd):/app/test gonzz/music_matcher:{tag}", pty=True)
+    ctx.run(f"docker run  --pull=always -t -v $(pwd):/app/test gonzz/music-matcher:{tag}", pty=True)
