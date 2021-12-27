@@ -39,6 +39,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: gonzz/music-matcher
+          flavor: latest=true
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
