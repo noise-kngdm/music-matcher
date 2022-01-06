@@ -5,8 +5,8 @@ To have a way to make the application portable and ready to integrate with CI/CD
 
 1. It should be **stable**, meaning that it should always work in a deterministic way to help to avoid environment-dependant bugs and problems that could slow the development -or worse- crash a production release. To do that it should always ship with compatible and standard libraries and packages.
 2. It should have **frequent updates**. This helps to have a more reliable product since if the libraries and packages it uses are as up-to-date as possible it will benefit from the bug fixes and the performance enhancements those updates usually mean soon.
-4. It should ship with Python or allow installing Python in a fast way. Since the project works on top of Python, it is mandatory that the base image has good compatibility with it and allows for fast Python workflows.
-5. It should be as lightweight as possible without compromising the rest of the principles.
+3. It should ship with Python or allow installing Python in a fast way. Since the project works on top of Python, it is mandatory that the base image has good compatibility with it and allows for fast Python workflows.
+4. It should be as lightweight as possible without compromising the rest of the principles.
 
 #### Candidates
 The different choices we considered are [python:3.9-slim](https://github.com/docker-library/python/blob/3d43bcf8ddd26ae85fd6a63a7e1d502b445c9cce/3.9/bullseye/slim/Dockerfile) and [python:3.9-alpine](https://github.com/docker-library/python/blob/b739aec8401a072f43ed5f5eec806e8cc1d1b106/3.9/alpine3.15/Dockerfile), maintained by the Docker community and part of the [official Python image](https://hub.docker.com/_/python), and [ubuntu:20.04](https://github.com/tianon/docker-brew-ubuntu-core/blob/bf61e139e84e04f9d87fff5dc588a3f0398da627/focal/Dockerfile), maintained by Canonical and Tianon and part of the [official Ubuntu image] (https://hub.docker.com/_/ubuntu).
@@ -181,7 +181,7 @@ Surprisingly, the most 'bloated' image was also the fastest one. We should take 
 When this document was written, Python versions `3.9.9` and even `3.10.1` were available for the `python:3.9-slim` and `python:3.9-alpine`, but the `ubuntu:20.04` image offered only Python up to version `3.9.5`.
 
 #### Final choice
-It's clear that in almost all the checks performed the `python:3.9-slim` image was equal or better than the rest, except for the performance one, but the difference was not meaningful enought to end up choosing Ubuntu. Because of this, we decided to use it as the base image of our Dockerfile. We'd reconsider changing it to `python:3.9-alpine` once the distribution of `musllinux` wheels is more extended in the Python community since that would remove the necessity of installing `glibc` and additional libraries in the alpine-based container to be able to install the project dependencies in a faster way.
+It's clear that in almost all the checks performed the `python:3.9-slim` image was equal or better than the rest, except for the performance one, but the difference was not meaningful enough to end up choosing Ubuntu. Because of this, we decided to use it as the base image of our Dockerfile. We'd reconsider changing it to `python:3.9-alpine` once the distribution of `musllinux` wheels is more extended in the Python community since that would remove the necessity of installing `glibc` and additional libraries in the alpine-based container to be able to install the project dependencies in a faster way.
 
 ### Final Dockerfile
 We made an effort on following the best practices when creating the Dockerfile:
