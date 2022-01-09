@@ -1,4 +1,3 @@
-
 # Music-matcher
 Connect with people based on your music tastes.
 
@@ -12,11 +11,11 @@ To install the project, it's necessary to have a **Python3 3.5+** interpreter av
 
 ### Install the dependencies
 #### Install Poetry (required)
-First it's necessary to install [**Poetry**](https://python-poetry.org/), the dependency manager of the project, which ensures that the project is running on an environment with all the required dependencies.  
+First, it's necessary to install [**Poetry**](https://python-poetry.org/), the dependency manager of the project, which ensures that the project is running on an environment with all the required dependencies.  
 
-To install Poetry in a Linux system, it's necessary to run the following command [according with the installation manual](https://python-poetry.org/docs/master/#installation):
+To install Poetry in a Linux system, it's necessary to run the following command [according to the installation manual](https://python-poetry.org/docs/master/#installation):
 ```zsh
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 - && \
 ```  
 
 #### Install the rest of the dependencies
@@ -46,6 +45,8 @@ To check the syntax of the programmed entities, you only need to `cd` into the r
 To test the different files of the project, it is necessary to have the root folder of the project as the working directory and run `inv test`. **Invoke** will deal with executing *pytest* inside the virtual environment of the project and will show the output properly formated.  
 
 If you only need to execute tests for a class or file, you can use the `-k/--keyword` flag to indicate which tests should be executed, and it will not load the rest of them.
+
+Alternatively, it's possible to use a docker container to run the unit tests. To do that, after having activated the virtual environment set up by Poetry, execute `inv docker`. That command will automatically download the required image and execute the unit tests.
   
 ## Additional documentation
 ### User stories
@@ -56,3 +57,9 @@ There's a detailed explanation of why every tool was selected [here](docs/develo
 
 ### Development notes
 There's a detailed explanation on why our unit tests comply with the **F.I.R.S.T** principles in the [docs](docs/development_notes.md).
+
+### Infraestructure decisions
+On [this document](docs/infrastructure_decisions.md) there is a detailed explanation of the base image used for the test container along with information regarding the principles followed to develop it.
+
+### CI/CD notes
+You can read [this document](docs/cicd_notes.md) if you want information regarding the GitHub Action we set up to automatically build and push to [DockerHub](https://hub.docker.com/repository/docker/gonzz/music_matcher) a new test container when necessary.
