@@ -1,0 +1,8 @@
+image: Ubuntu
+
+services:
+  - docker
+
+build: off
+test_script:
+  - docker run -t -v $(pwd):/app/test gonzz/music-matcher
