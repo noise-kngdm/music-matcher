@@ -62,4 +62,4 @@ There's a detailed explanation on why our unit tests comply with the **F.I.R.S.T
 On [this document](docs/infrastructure_decisions.md) there is a detailed explanation of the base image used for the test container along with information regarding the principles followed to develop it.
 
 ### CI/CD notes
-You can read [this document](docs/cicd_notes.md) if you want information regarding the GitHub Action we set up to automatically build and push to [DockerHub](https://hub.docker.com/repository/docker/gonzz/music_matcher) a new test container when necessary.
+You can read [this document](docs/cicd_notes.md) if you want information regarding the GitHub Action we set up to automatically build and push to [DockerHub](https://hub.docker.com/repository/docker/gonzz/music_matcher) a new test container when necessary. In that document you will also find information regarding the GitHub Action we created to pass the unit tests against different Python versions and in the AppVeyor platform using the test container.

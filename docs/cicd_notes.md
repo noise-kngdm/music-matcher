@@ -41,8 +41,7 @@ A CI/CD tool that [advertises itself](https://semaphoreci.com/product) as a fast
 - They give the equivalent of $10 in credits per month to use for free, around 1300 minutes.
 - The platform is Cloud-based.
 
-We didn't check the rest of the points since we faced different errors with the service the whole day we tried to use it. For example, when we tried to create an account and configure it we encountered the following error:
-[500 semaphore CI](images/semaphoreci.png)
+We didn't check the rest of the points since we faced different errors with the service the whole day we tried to use it.
 
 #### Conclusion
 We won't consider this option any further because of the availability problems that we faced.
@@ -74,4 +73,12 @@ A CI/CD tool that allows its free tier to use parallel builds, which is a very i
 CircleCI got 6 out of 6 points, however, since it was the service that was used the most by the rest of the students we decided not to consider it for our project.
 
 ### Final choices
-After the analysis performed we decided that the best candidates to use as CI/CD platforms for our project are **GitHub Actions** and **AppVeyor**. We discarded the other two options because, althought they could be of use, SemaphoreCI suffered from critical availability problems when we first tried to use it, and CircleCI was used in almost all the rest of the projects.
+After the analysis performed we decided that the best candidates to use as CI/CD platforms for our project are n**GitHub Actions** and **AppVeyor**. We discarded the other two options because, although they could be of use, SemaphoreCI suffered from critical availability problems when we first tried to use it, and CircleCI was used in almost all the rest of the projects.
+
+## Executing the unit tests with a GitHub Action
+We created a GitHub Action based on the [setup-python action](https://github.com/marketplace/actions/setup-python) that installs the project's dependencies in an ubuntu machine and then runs the unit tests for 3.10. No prior Python versions will be tested since as it was explained in the [infrastructure decisions documentation](infrastructure_decisions.md), the minimum Python version that the project supports is Python 3.9, which is the one used by the test container and will be tested using *AppVeyor*.
+Future releases of Python versions could be added to this GitHub action to ensure the project is working as expected for every supported version.
+
+## Executing the unit tests using the test container
+We configured an AppVeyor project to pass the unit tests inside the [test container](../Dockerfile). To use it, we only needed to install the GitHub App provided by the platform and give it the permissions necessary to check the repository. Once that's done the integration with GitHub is up and ready to use.
+To configure it we only needed to create the [.appveyor.yml](../.appveyor.yml) with information regarding how to configure the machine and what to execute to pass the tests. Now, the service will be automatically configured to run the unit tests every time a new commit is added to a PR.
