@@ -1,5 +1,7 @@
 image: Ubuntu
 
+skip_branch_with_pr: true
+
 services:
   - docker
 
