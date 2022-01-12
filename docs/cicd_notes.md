@@ -73,7 +73,7 @@ A CI/CD tool that allows its free tier to use parallel builds, which is a very i
 CircleCI got 6 out of 6 points, however, since it was the service that was used the most by the rest of the students we decided not to consider it for our project.
 
 ### Final choices
-After the analysis performed we decided that the best candidates to use as CI/CD platforms for our project are n**GitHub Actions** and **AppVeyor**. We discarded the other two options because, although they could be of use, SemaphoreCI suffered from critical availability problems when we first tried to use it, and CircleCI was used in almost all the rest of the projects.
+After the analysis performed we decided that the best candidates to use as CI/CD platforms for our project are **GitHub Actions** and **AppVeyor**. We discarded the other two options because, although they could be of use, SemaphoreCI suffered from critical availability problems when we first tried to use it, and CircleCI was used in almost all the rest of the projects.
 
 ## Executing the unit tests with a GitHub Action
 We created a GitHub Action based on the [setup-python action](https://github.com/marketplace/actions/setup-python) that installs the project's dependencies in an ubuntu machine and then runs the unit tests for 3.10. No prior Python versions will be tested since as it was explained in the [infrastructure decisions documentation](infrastructure_decisions.md), the minimum Python version that the project supports is Python 3.9, which is the one used by the test container and will be tested using *AppVeyor*.
