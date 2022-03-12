@@ -9,3 +9,5 @@ automatizar:
   orden: inv
 
 test: music_matcher/tests/test_recommendation_engine.py
+
+CI: .appveyor.yml

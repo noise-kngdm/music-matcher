@@ -1,0 +1,10 @@
+image: Ubuntu
+
+skip_branch_with_pr: true
+
+services:
+  - docker
+
+build: off
+test_script:
+  - docker run -t -v $(pwd):/app/test gonzz/music-matcher
