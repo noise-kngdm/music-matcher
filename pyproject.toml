@@ -2,7 +2,7 @@
 name = "music-matcher"
 version = "v0.3.0"
 description = "Connect with people based on your music tastes."
-authors = ["gonzz <gonzalo.abril@wazuh.com>"]
+authors = ["gonzz <gonzz@correo.ugr.es>"]
 license = "GPL-3.0"
 
 [tool.poetry.dependencies]
